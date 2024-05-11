@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 
-KedePipeline::KedePipeline(KedeDevice& device, const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& config) : kedeDevice {device}
+KedePipeline::KedePipeline(KedeDevice& device, const std::string& vertFilepath, const std::string& fragFilepath, const PipelineConfigInfo& config) : kedeDevice{device}
 {
     createGraphicsPipeline(vertFilepath, fragFilepath, config);
 }
@@ -19,7 +19,7 @@ KedePipeline::~KedePipeline()
 
 PipelineConfigInfo KedePipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
 {
-    PipelineConfigInfo config {};
+    PipelineConfigInfo config{};
 
     config.viewport.x = 0.0f;
     config.viewport.y = 0.0f;
@@ -63,40 +63,40 @@ PipelineConfigInfo KedePipeline::defaultPipelineConfigInfo(uint32_t width, uint3
 
     config.colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
     config.colorBlendAttachment.blendEnable = VK_FALSE;
-    config.colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;   // Optional
-    config.colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;  // Optional
-    config.colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;              // Optional
-    config.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;   // Optional
-    config.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;  // Optional
-    config.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;              // Optional
+    config.colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE; // Optional
+    config.colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO; // Optional
+    config.colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD; // Optional
+    config.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE; // Optional
+    config.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO; // Optional
+    config.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD; // Optional
 
     config.colorBlendInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
     config.colorBlendInfo.logicOpEnable = VK_FALSE;
-    config.colorBlendInfo.logicOp = VK_LOGIC_OP_COPY;  // Optional
+    config.colorBlendInfo.logicOp = VK_LOGIC_OP_COPY; // Optional
     config.colorBlendInfo.attachmentCount = 1;
     config.colorBlendInfo.pAttachments = &config.colorBlendAttachment;
-    config.colorBlendInfo.blendConstants[0] = 0.0f;  // Optional
-    config.colorBlendInfo.blendConstants[1] = 0.0f;  // Optional
-    config.colorBlendInfo.blendConstants[2] = 0.0f;  // Optional
-    config.colorBlendInfo.blendConstants[3] = 0.0f;  // Optional
+    config.colorBlendInfo.blendConstants[0] = 0.0f; // Optional
+    config.colorBlendInfo.blendConstants[1] = 0.0f; // Optional
+    config.colorBlendInfo.blendConstants[2] = 0.0f; // Optional
+    config.colorBlendInfo.blendConstants[3] = 0.0f; // Optional
 
     config.depthStencilInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     config.depthStencilInfo.depthTestEnable = VK_TRUE;
     config.depthStencilInfo.depthWriteEnable = VK_TRUE;
     config.depthStencilInfo.depthCompareOp = VK_COMPARE_OP_LESS;
     config.depthStencilInfo.depthBoundsTestEnable = VK_FALSE;
-    config.depthStencilInfo.minDepthBounds = 0.0f;  // Optional
-    config.depthStencilInfo.maxDepthBounds = 1.0f;  // Optional
+    config.depthStencilInfo.minDepthBounds = 0.0f; // Optional
+    config.depthStencilInfo.maxDepthBounds = 1.0f; // Optional
     config.depthStencilInfo.stencilTestEnable = VK_FALSE;
-    config.depthStencilInfo.front = {};  // Optional
-    config.depthStencilInfo.back = {};   // Optional
-    
+    config.depthStencilInfo.front = {}; // Optional
+    config.depthStencilInfo.back = {}; // Optional
+
     return config;
 }
 
 std::vector<char> KedePipeline::readPath(const std::string& path)
 {
-    std::ifstream file {path, std::ios::ate | std::ios::binary};
+    std::ifstream file{path, std::ios::ate | std::ios::binary};
 
     if (!file.is_open())
     {
@@ -117,7 +117,7 @@ void KedePipeline::createGraphicsPipeline(const std::string& vertFilepath, const
 {
     assert(config.pipelineLayout != VK_NULL_HANDLE && "Can not create graphics pipeline: no pipeline layout provided in config");
     assert(config.renderPass != VK_NULL_HANDLE && "Can not create graphics pipeline: no render pass provided in config");
-    
+
     auto vertCode = readPath(vertFilepath);
     auto fragCode = readPath(fragFilepath);
 
