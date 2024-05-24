@@ -31,12 +31,6 @@ PipelineConfigInfo KedePipeline::defaultPipelineConfigInfo(uint32_t width, uint3
     config.scissor.offset = {0, 0};
     config.scissor.extent = {width, height};
 
-    config.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-    config.viewportInfo.viewportCount = 1;
-    config.viewportInfo.pViewports = &config.viewport;
-    config.viewportInfo.scissorCount = 1;
-    config.viewportInfo.pScissors = &config.scissor;
-
     config.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
     config.inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
     config.inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;
@@ -148,13 +142,20 @@ void KedePipeline::createGraphicsPipeline(const std::string& vertFilepath, const
     vertexInputInfo.pVertexAttributeDescriptions = nullptr;
     vertexInputInfo.pVertexBindingDescriptions = nullptr;
 
+    VkPipelineViewportStateCreateInfo viewportInfo{};
+    viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+    viewportInfo.viewportCount = 1;
+    viewportInfo.pViewports = &config.viewport;
+    viewportInfo.scissorCount = 1;
+    viewportInfo.pScissors = &config.scissor;
+
     VkGraphicsPipelineCreateInfo pipelineInfo{};
     pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     pipelineInfo.stageCount = 2;
     pipelineInfo.pStages = shaderStages;
     pipelineInfo.pVertexInputState = &vertexInputInfo;
     pipelineInfo.pInputAssemblyState = &config.inputAssemblyInfo;
-    pipelineInfo.pViewportState = &config.viewportInfo;
+    pipelineInfo.pViewportState = &viewportInfo;
     pipelineInfo.pRasterizationState = &config.rasterizationInfo;
     pipelineInfo.pMultisampleState = &config.multisampleInfo;
     pipelineInfo.pColorBlendState = &config.colorBlendInfo;

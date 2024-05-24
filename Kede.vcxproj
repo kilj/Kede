@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="Core\KedeDevice.cpp" />
     <ClCompile Include="Core\KedePipeline.cpp" />
+    <ClCompile Include="Core\KedeSwapChain.cpp" />
     <ClCompile Include="Core\KedeWindow.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -241,6 +242,7 @@
   <ItemGroup>
     <ClInclude Include="Core\KedeDevice.h" />
     <ClInclude Include="Core\KedePipeline.h" />
+    <ClInclude Include="Core\KedeSwapChain.h" />
     <ClInclude Include="Core\KedeWindow.h" />
     <ClInclude Include="FirstApp.h" />
   </ItemGroup>
