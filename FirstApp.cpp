@@ -38,8 +38,8 @@ void FirstApp::CreatePipelineLayout()
 
 void FirstApp::CreatePipeline()
 {
-    auto pipelineConfig = KedePipeline::defaultPipelineConfigInfo(kedeSwapchain.width(), kedeSwapchain.height());
-    pipelineConfig.renderPass = kedeSwapchain.getRenderPass();
+    auto pipelineConfig = KedePipeline::defaultPipelineConfigInfo(kedeSwapChain.width(), kedeSwapChain.height());
+    pipelineConfig.renderPass = kedeSwapChain.getRenderPass();
     pipelineConfig.pipelineLayout = kedePipelineLayout;
 
     kedePipeline = std::make_unique<KedePipeline>(kedeDevice, "Shaders/simpleshader.vert.spv", "Shaders/simpleshader.frag.spv", pipelineConfig);
@@ -47,6 +47,19 @@ void FirstApp::CreatePipeline()
 
 void FirstApp::CreateCommandBuffers()
 {
+    commandBuffers.resize(kedeSwapChain.imageCount());
+
+    VkCommandBufferAllocateInfo allocateInfo{};
+    allocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    allocateInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    allocateInfo.commandPool = kedeDevice.getCommandPool();
+    allocateInfo.commandBufferCount = static_cast<uint32_t>(commandBuffers.size());
+
+    if (vkAllocateCommandBuffers(kedeDevice.device(), &allocateInfo, commandBuffers.data()) != VK_SUCCESS)
+    {
+        throw std::exception("failed to allocate command buffers");
+    }
+    
 }
 
 void FirstApp::DrawFrame()

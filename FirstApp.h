@@ -26,7 +26,7 @@ private:
     
     KedeWindow kedeWindow{WIDTH, HEIGHT, "Hello, V!"};
     KedeDevice kedeDevice{kedeWindow};
-    KedeSwapChain kedeSwapchain{kedeDevice, kedeWindow.getExtent()};
+    KedeSwapChain kedeSwapChain{kedeDevice, kedeWindow.getExtent()};
 
     std::unique_ptr<KedePipeline> kedePipeline;
     VkPipelineLayout kedePipelineLayout;
